@@ -13,13 +13,18 @@ class Patient(models.Model):
     symptoms = models.TextField(blank=True)
 
 class Visit_date(models.Model):
-    day = models.CharField(max_length=10)
+    day = models.PositiveSmallIntegerField()
     hours = models.PositiveSmallIntegerField()
 
-class Visits(models.Model):
+    def __str__(self):
+        return f'{self.day} | {self.hours}'
+
+class Visit(models.Model):
     visit_date = models.ForeignKey(Visit_date, on_delete=models.CASCADE)
     therapist = models.ForeignKey(Therapist, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     is_confirmed = models.BooleanField(default=False)
+
+    
     
 
