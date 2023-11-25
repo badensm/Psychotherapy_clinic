@@ -12,6 +12,9 @@ def register(request):
     if request.method == 'GET':
         return render(request, 'register.html', {'form': RegisterForm()})
     else:
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        is_staff = request.POST.get('is_staff')
         username = request.POST.get('username')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
@@ -33,7 +36,7 @@ def register(request):
                     except ValidationError as e:
                         return render(request, 'register.html', {'password_errors': e.messages, 'form': RegisterForm()})
                     else:
-                        user = User.objects.create_user(username=username,email=email,password=password1)
+                        user = User.objects.create_user(first_name=first_name,last_name=last_name,is_staff=is_staff,username=username,email=email,password=password1)
                         return redirect('home')
 
                 else:
