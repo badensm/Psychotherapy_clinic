@@ -7,6 +7,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from visitRegistry.models import Therapist, Patient
 
 def register(request):
     if request.method == 'GET':
@@ -36,7 +37,14 @@ def register(request):
                     except ValidationError as e:
                         return render(request, 'register.html', {'password_errors': e.messages, 'form': RegisterForm()})
                     else:
-                        user = User.objects.create_user(first_name=first_name,last_name=last_name,is_staff=is_staff,username=username,email=email,password=password1)
+                        is_therapist = False
+                        if is_staff == "on":
+                            is_therapist = True
+                        user = User.objects.create_user(first_name=first_name,last_name=last_name,is_staff=is_therapist,username=username,email=email,password=password1)
+                        if is_staff:
+                            therapist = Therapist.objects.create(user_id=user.id,visit_rate=0)
+                        else:
+                            patient = Patient.objects.create(user_id=user.id)
                         return redirect('home')
 
                 else:

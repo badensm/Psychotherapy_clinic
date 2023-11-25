@@ -6,7 +6,7 @@ class Therapist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     visit_rate = models.FloatField()
     info = models.TextField(blank=True)
-
+    
 class Patient(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     diagnosis = models.CharField(max_length=200,blank=True)

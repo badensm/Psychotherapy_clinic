@@ -9,10 +9,12 @@
 
     {% if user.is_authenticated%}
     <p>Welcome back {{user}}</p>
-    <a href="{% url 'logout_user' %}"><p>Log out</p></a>
+    <a href="{% url 'logout_user' %}"><p>Wyloguj</p></a>
+    <a href="{% url 'account' %}"><p>Twoje konto</p></a>
+    <a href="{% url 'visit_list' %}"><p>Twoje wizyty</p></a>
     {% else %}
-    <a href="{% url 'register' %}"><p>Register new user</p></a>
-    <a href="{% url 'login_user' %}"><p>Log in</p></a>
+    <a href="{% url 'register' %}"><p>Zarejestruj się</p></a>
+    <a href="{% url 'login_user' %}"><p>Zaloguj się</p></a>
     {% endif %}
      {% block content%}
     {% endblock content %}
