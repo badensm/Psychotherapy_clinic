@@ -5,6 +5,30 @@
 
 <h1>Wizyty {{fwiffo}}</h1>
 
+<h2>Wizyty potwierdzone</h2>
+
+{% for visit in visits %}
+
+    {% if visit.is_confirmed %}
+
+        <a href="{% url 'visit_detail' visit.id %}"><h2>{{visit.id}}</h2></a>
+
+    {% endif %}
+
+{% endfor %}
+
+<h2>Wizyty niepotwierdzone</h2>
+
+{% for visit in visits %}
+
+    {% if not visit.is_confirmed %}
+
+        <a href="{% url 'visit_detail' visit.id %}"><h2>{{visit.id}}</h2></a>
+
+    {% endif %}
+
+{% endfor %}
+
 {% endblock content %}
     
 

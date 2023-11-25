@@ -3,7 +3,32 @@
 
 {% block content %}
 
-<h1>Dane konta {{user}}</h1>
+<h1>Dane konta użytkownika {{user}}</h1>
+
+<p>Imię: {{user.first_name}}</p>
+<p>Nazwisko: {{user.last_name}}</p>
+<p>E-mail: {{user.email}}</p>
+
+
+{% if user.is_staff %}
+
+    <p>Pozycja: Terapeuta</p>
+    {% if additional_data.info %}
+        <p>Dodatkowe informacje: {{additional_data.info}}</p>
+    {% endif %} 
+
+{% else %}
+
+    <p>Pozycja: Pacjent</p>
+    {% if additional_data.symptoms %}
+        <p>Twoje objawy: {{additional_data.symptoms}}</p>
+    {% endif %}
+    {% if additional_data.diagnosis %}
+        <p>Twoja diagnoza: {{additional_data.diagnosis}}</p>
+    {% endif %}
+
+{% endif %}
+
 
 {% endblock content %}
     
