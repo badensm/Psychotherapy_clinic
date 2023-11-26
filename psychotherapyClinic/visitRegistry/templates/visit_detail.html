@@ -3,7 +3,54 @@
 
 {% block content %}
 
-<h1>Wizyta</h1>
+<h2>Informacje o wizycie</h2>
+
+{% for visit_date in visit_dates %}
+    
+    {% if visit_date.id == visit.visit_date_id %}
+        <p>Wizyta umówiona na {{visit_date.day}}, godz. {{visit_date.hours}}</p> 
+    {% endif %}
+        
+{% endfor %}
+
+{% for patient in patients %}
+    
+    {% if patient.id == visit.patient_id %}
+        
+        {% for user_search in user_list %}
+            
+            {% if user_search.id == patient.user_id %}
+                <p> Pacjent: {{user_search.first_name}} {{user_search.last_name}}</p> 
+            {% endif %}
+                          
+        {% endfor %}
+            
+    {% endif %}
+        
+{% endfor %}
+
+{% for therapist in therapists %}
+    
+    {% if therapist.id == visit.therapist_id %}
+        
+        {% for user_search in user_list %}
+            
+            {% if user_search.id == therapist.user_id %}
+                <p> Terapeuta: {{user_search.first_name}} {{user_search.last_name}}</p> 
+            {% endif %}                  
+        {% endfor %}
+            
+    {% endif %}
+        
+{% endfor %}
+
+{% if visit.is_confirmed %}
+    <p>Wizyta potwierdzona</p>
+{% else %}
+<a href="{% url 'confirm_visit' visit.id %}"><h2>Potwierdź wizytę</h2></a>   
+{% endif %}
+
+    
 
 {% endblock content %}
     

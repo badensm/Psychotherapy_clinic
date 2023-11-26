@@ -41,41 +41,8 @@
 
     {% for visit_hour in working_hours %}
         <tr>           
-            {% if visit_hour.day == 1 %}
-                <td>Poniedziałek</td>
-            {% elif visit_hour.day == 2 %}
-                <td>Wtorek</td>
-            {% elif visit_hour.day == 3 %}
-                <td>
-                    Środa</td>
-            {% elif visit_hour.day == 4 %}
-                <td>Czwartek</td>
-            {% elif visit_hour.day == 5 %}
-                <td>Piątek</td>
-            {% endif %}
-            
-            {% if visit_hour.hours == 10 %}
-                <td>10:10</td>
-            {% elif visit_hour.hours == 11 %}
-                <td>11:10</td>
-            {% elif visit_hour.hours == 12 %}
-                <td>12:10</td>
-            {% elif visit_hour.hours == 13 %}
-                <td>13:10</td>
-            {% elif visit_hour.hours == 14 %}
-                <td>14:10</td>
-            {% elif visit_hour.hours == 15 %}
-                <td>15:10</td>
-            {% elif visit_hour.hours == 16 %}
-                <td>16:10</td>
-            {% elif visit_hour.hours == 17 %}
-                <td>17:10</td>
-            {% elif visit_hour.hours == 18 %}
-                <td>18:10</td>
-            {% elif visit_hour.hours == 19 %}
-                <td>19:10</td>                            
-            {% endif %}
-                   
+            <td>{{visit_hour.day}}</td>
+            <td>{{visit_hour.hours}}</td>                   
             
             {% for reserved_hour in reserved_hours %}
                 

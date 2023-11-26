@@ -13,9 +13,8 @@ class Patient(models.Model):
     symptoms = models.TextField(blank=True)
 
 class Visit_date(models.Model):
-    day = models.PositiveSmallIntegerField()
+    day = models.CharField(max_length=12)
     hours = models.PositiveSmallIntegerField()
-
     def __str__(self):
         return f'{self.day} | {self.hours}'
 

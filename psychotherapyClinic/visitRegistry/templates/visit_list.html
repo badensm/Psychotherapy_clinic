@@ -9,9 +9,15 @@
 
 {% for visit in visits %}
 
-    {% if visit.is_confirmed %}
-
-        <a href="{% url 'visit_detail' visit.id %}"><h2>{{visit.id}}</h2></a>
+    {% if visit.is_confirmed and visit.patient_id %}
+        
+        {% for visit_hour in visit_hours %}
+        
+            {% if visit_hour.id == visit.visit_date_id %}
+                <a href="{% url 'visit_detail' visit.id %}"><h2>{{visit_hour.day}}, godz. {{visit_hour.hours}}</h2></a>
+            {% endif %}      
+            
+        {% endfor %}      
 
     {% endif %}
 
@@ -21,10 +27,14 @@
 
 {% for visit in visits %}
 
-    {% if not visit.is_confirmed %}
-
-        <a href="{% url 'visit_detail' visit.id %}"><h2>{{visit.id}}</h2></a>
-
+    {% if not visit.is_confirmed and visit.patient_id %}
+        {% for visit_hour in visit_hours %}
+        
+            {% if visit_hour.id == visit.visit_date_id %}
+                <a href="{% url 'visit_detail' visit.id %}"><h2>{{visit_hour.day}}, godz. {{visit_hour.hours}}</h2></a>
+            {% endif %}      
+    
+{% endfor %}   
     {% endif %}
 
 {% endfor %}
