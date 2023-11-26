@@ -3,38 +3,6 @@
 
 {% block content %}
 
-<h2>Zarezerwuj termin</h2>
-
-<form action="{% url 'therapist_schedule' therapist_id %}" method="post">     
-       
-    <h3>Dzień</h3>
-    <select name="day">
-        <option value=1>Poniedziałek</option>
-        <option value=2>Wtorek</option>
-        <option value=3>Środa</option>
-        <option value=4>Czwartek</option>
-        <option value=5>Sobota</option>
-    </select>
-    <h3>Godzina</h3>
-    <select name="hours">
-        <option value=10>10:10</option>
-        <option value=11>11:10</option>
-        <option value=12>12:10</option>
-        <option value=13>13:10</option>
-        <option value=14>14:10</option>
-        <option value=15>15:10</option>
-        <option value=16>16:10</option>
-        <option value=17>17:10</option>
-        <option value=18>18:10</option>
-        <option value=19>19:10</option>
-    </select>
-
-
-    {% csrf_token %}
-    <button type="Submit">Submit</button>
-    
-</form>
-
 <h2>Plan tygodnia terapeuty {{user}}</h2>
 
 <table>

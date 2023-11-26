@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Umów nową wizytę</h1>
+  
+<p>Pacjent: {{user.first_name}} {{user.last_name}}</p>
+
+<label for="therapist_select"><p>Terapeuta:</p></label>
+<select name="therapist" id="therapist_select">
+    
+    {% for therapist in therapists %}
+        
+        {% for user_search in user_list %}
+            
+            {% if user_search_id == therapist.user_id %}
+                <option value=therapist.id>{{user_search.first_name}} {{user_search.last_name}}</option>
+            {% endif %}
+                
+        {% endfor %}
+            
+        
+    {% endfor %}
+        
+</select>
+
+<label for="visit_date_select"><p>Termin wizyty:</p></label>
+<select name="visit_hour" id="visit_date_select">
+    
+    {% for visit_date in visit_dates %}
+     
+     {% if visit_date.id in visit_list.visit_date_id %}
+        <option value=visit_date.id>{{user_search.first_name}} {{user_search.last_name}}</option>
+     {% endif %}
+
+    {% endfor %}
+        
+</select>
+
+
+{% endblock content %}
+    
+
+

@@ -36,9 +36,54 @@ def therapist_schedule(request,therapist_id):
         working_hours = Visit_date.objects.all()
         reserved_hours = Visit.objects.filter(therapist_id=therapist_id)
         return render(request,'therapist_schedule.html',{'working_hours':working_hours, 'reserved_hours':reserved_hours, 'therapist_id':therapist_id})
-    
+
+@login_required (login_url='login_user')    
 def confirm_visit(request, visit_id):
     visit = get_object_or_404(Visit, id=visit_id)
     visit.is_confirmed = True
     visit.save()
     return redirect('visit_detail', visit_id=visit_id)
+
+@login_required (login_url='login_user')
+def visit_create_user(request, user_id):
+    patients = Patient.objects.all()
+    therapists = Therapist.objects.all()
+    if user_id in patients:
+        return redirect ('visit_create_patient', user_id=user_id)
+    elif user_id in therapists:
+        return redirect ('visit_create_therapist', user_id=user_id)
+    else:
+        return redirect('home')
+
+@login_required (login_url='login_user')
+def visit_create_patient(request, user_id):
+    if request.method == 'GET':
+        patient = get_object_or_404(Patient, user_id=user_id)
+        therapists = Therapist.objects.all()
+        visit_list = Visit.objects.all()
+        visit_dates = Visit_date.objects.all()
+        user_list = User.objects.all()
+        return render(request, 'visit_create_patient.html', {'patient':patient,'therapists':therapists,'visit_list':visit_list,'visit_dates':visit_dates,'user_list':user_list})
+
+@login_required (login_url='login_user')
+def visit_create_therapist(request, user_id):
+    if request.method == 'GET':
+        therapist = get_object_or_404(Therapist, user_id=user_id)
+        patients = Patient.objects.all()
+        visit_list = Visit.objects.all()
+        visit_dates = Visit_date.objects.all()
+        user_list = User.objects.all()
+        return render(request, 'visit_create_therapist.html', {'patients':patients,'therapist':therapist,'visit_list':visit_list,'visit_dates':visit_dates, 'user_list':user_list}) 
+
+ 
+@login_required (login_url='login_user')
+def create_visit(request, visit_date_id, patient_id, therapist_id):
+    visit = Visit(visit_date_id=visit_date_id,patient_id=patient_id,therapist_id=therapist_id)
+    visit.save()
+    return redirect('visit_list')
+
+@login_required (login_url='login_user')
+def cancel_visit(request, visit_id):
+    visit = get_object_or_404(Visit, id=visit_id)
+    visit.delete()
+    return redirect('visit_list')

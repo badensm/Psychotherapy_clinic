@@ -10,13 +10,13 @@
 {% for visit in visits %}
 
     {% if visit.is_confirmed and visit.patient_id %}
-        
+    
         {% for visit_hour in visit_hours %}
-        
+    
             {% if visit_hour.id == visit.visit_date_id %}
-                <a href="{% url 'visit_detail' visit.id %}"><h2>{{visit_hour.day}}, godz. {{visit_hour.hours}}</h2></a>
+                <a href="{% url 'visit_detail' visit.id %}"><p>{{visit_hour.day}}, godz. {{visit_hour.hours}}</p></a>
             {% endif %}      
-            
+        
         {% endfor %}      
 
     {% endif %}
@@ -29,15 +29,18 @@
 
     {% if not visit.is_confirmed and visit.patient_id %}
         {% for visit_hour in visit_hours %}
-        
-            {% if visit_hour.id == visit.visit_date_id %}
-                <a href="{% url 'visit_detail' visit.id %}"><h2>{{visit_hour.day}}, godz. {{visit_hour.hours}}</h2></a>
-            {% endif %}      
     
-{% endfor %}   
+            {% if visit_hour.id == visit.visit_date_id %}
+                <a href="{% url 'visit_detail' visit.id %}"><p>{{visit_hour.day}}, godz. {{visit_hour.hours}}</p></a>
+            {% endif %}      
+
+        {% endfor %}   
     {% endif %}
 
 {% endfor %}
+
+<a href="{% url 'visit_create_user' user.id %}"><p>Umów wizytę</p></a>
+  
 
 {% endblock content %}
     
