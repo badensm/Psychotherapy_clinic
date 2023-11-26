@@ -16,6 +16,7 @@
     {% if additional_data.info %}
         <p>Dodatkowe informacje: {{additional_data.info}}</p>
     {% endif %} 
+    <a href="{% url 'therapist_schedule' additional_data.id %}"><p>Twój plan tygodnia</p></a>
 
 {% else %}
 

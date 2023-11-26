@@ -22,7 +22,7 @@ class Visit_date(models.Model):
 class Visit(models.Model):
     visit_date = models.ForeignKey(Visit_date, on_delete=models.CASCADE)
     therapist = models.ForeignKey(Therapist, on_delete=models.CASCADE)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, blank=True, null=True)
     is_confirmed = models.BooleanField(default=False)
 
     

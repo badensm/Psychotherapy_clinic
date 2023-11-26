@@ -1,5 +1,5 @@
 from django.shortcuts import render,  get_object_or_404
-from .models import Therapist, Patient, Visit
+from .models import Therapist, Patient, Visit, Visit_date
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -24,3 +24,11 @@ def visit_list(request):
 def visit_detail(request, visit_id):
     visit = get_object_or_404(Visit, id=visit_id)
     return render(request,'visit_detail.html')
+
+
+@login_required (login_url='login_user') 
+def therapist_schedule(request,therapist_id):
+    if request.method == 'GET':
+        working_hours = Visit_date.objects.all()
+        reserved_hours = Visit.objects.filter(therapist_id=therapist_id)
+        return render(request,'therapist_schedule.html',{'working_hours':working_hours, 'reserved_hours':reserved_hours, 'therapist_id':therapist_id})

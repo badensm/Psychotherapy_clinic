@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h2>Zarezerwuj termin</h2>
+
+<form action="{% url 'therapist_schedule' therapist_id %}" method="post">     
+       
+    <h3>Dzień</h3>
+    <select name="day">
+        <option value=1>Poniedziałek</option>
+        <option value=2>Wtorek</option>
+        <option value=3>Środa</option>
+        <option value=4>Czwartek</option>
+        <option value=5>Sobota</option>
+    </select>
+    <h3>Godzina</h3>
+    <select name="hours">
+        <option value=10>10:10</option>
+        <option value=11>11:10</option>
+        <option value=12>12:10</option>
+        <option value=13>13:10</option>
+        <option value=14>14:10</option>
+        <option value=15>15:10</option>
+        <option value=16>16:10</option>
+        <option value=17>17:10</option>
+        <option value=18>18:10</option>
+        <option value=19>19:10</option>
+    </select>
+
+
+    {% csrf_token %}
+    <button type="Submit">Submit</button>
+    
+</form>
+
+<h2>Plan tygodnia terapeuty {{user}}</h2>
+
+<table>
+
+    {% for visit_hour in working_hours %}
+        <tr>           
+            {% if visit_hour.day == 1 %}
+                <td>Poniedziałek</td>
+            {% elif visit_hour.day == 2 %}
+                <td>Wtorek</td>
+            {% elif visit_hour.day == 3 %}
+                <td>
+                    Środa</td>
+            {% elif visit_hour.day == 4 %}
+                <td>Czwartek</td>
+            {% elif visit_hour.day == 5 %}
+                <td>Piątek</td>
+            {% endif %}
+            
+            {% if visit_hour.hours == 10 %}
+                <td>10:10</td>
+            {% elif visit_hour.hours == 11 %}
+                <td>11:10</td>
+            {% elif visit_hour.hours == 12 %}
+                <td>12:10</td>
+            {% elif visit_hour.hours == 13 %}
+                <td>13:10</td>
+            {% elif visit_hour.hours == 14 %}
+                <td>14:10</td>
+            {% elif visit_hour.hours == 15 %}
+                <td>15:10</td>
+            {% elif visit_hour.hours == 16 %}
+                <td>16:10</td>
+            {% elif visit_hour.hours == 17 %}
+                <td>17:10</td>
+            {% elif visit_hour.hours == 18 %}
+                <td>18:10</td>
+            {% elif visit_hour.hours == 19 %}
+                <td>19:10</td>                            
+            {% endif %}
+                   
+            
+            {% for reserved_hour in reserved_hours %}
+                
+                {% if reserved_hour.visit_date_id == visit_hour.id %}
+                    
+                    {% if reserved_hour.patient_id %}
+                        <td>Wizyta</td>
+                    {% else %}
+                        <td>Rezerwacja</td>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+                 
+                
+                    
+   
+        </tr>
+    {% endfor %}
+        
+</table>
+
+{% endblock content %}
+    
+
+
