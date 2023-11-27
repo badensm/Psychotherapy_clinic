@@ -43,12 +43,33 @@
     {% endif %}
         
 {% endfor %}
+ 
 
-{% if visit.is_confirmed %}
-    <p>Wizyta potwierdzona</p>
-{% else %}
-<a href="{% url 'confirm_visit' visit.id %}"><h2>Potwierdź wizytę</h2></a>   
-{% endif %}
+{% for patient in patients %}
+    {% if user.id == patient.user_id %}    
+        {% if visit.is_confirmed %}
+            <p>Wizyta potwierdzona</p>
+        {% elif visit.booked_by_patient %}
+            <p>Wizyta czeka na potwierdzenie przez terapeutę</p>
+        {% else %}
+            <a href="{% url 'confirm_visit' visit.id %}"><h2>Potwierdź wizytę</h2></a>  
+        {% endif %}
+    {% endif %}
+{% endfor %}
+    
+{% for therapist in therapists %}
+    {% if user.id == therapist.user_id %}
+        {% if visit.is_confirmed %}
+            <p>Wizyta potwierdzona</p>
+        {% elif visit.booked_by_patient %}
+            <a href="{% url 'confirm_visit' visit.id %}"><h2>Potwierdź wizytę</h2></a>  
+        {% else %}
+            <p>Wizyta czeka na potwierdzenie przez pacjenta</p>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+        
+
 
 <a href="{% url 'cancel_visit' visit.id %}"><h2>Anuluj wizytę</h2></a>
 
