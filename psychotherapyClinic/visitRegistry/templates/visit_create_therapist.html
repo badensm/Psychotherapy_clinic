@@ -16,7 +16,7 @@
             {% for user_search in user_list %}
                 
                 {% if user_search.id == patient.user_id %}
-                    <option value="{{patient.id}}">{{user_search.first_name}} {{user_search.last_name}}</option>
+                    <option value="{{patient.id}}">{{user_search.username}}</option>
                 {% endif %}
                     
             {% endfor %}

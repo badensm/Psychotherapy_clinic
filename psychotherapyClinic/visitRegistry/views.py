@@ -83,7 +83,13 @@ def patient_list(request):
 
 @login_required (login_url='login_user') 
 def visit_list(request):
-    visits = Visit.objects.all()
+    user = request.user
+    if user.is_staff:
+        therapist = get_object_or_404(Therapist, user_id = user.id)
+        visits = Visit.objects.filter(therapist_id=therapist.id)
+    else:
+        patient = get_object_or_404(Patient, user_id = user.id)
+        visits = Visit.objects.filter(patient_id=patient.id)
     visit_hours = Visit_date.objects.all()
     return render(request,'visit_list.html',{'visits': visits,'visit_hours':visit_hours})
 
@@ -170,13 +176,14 @@ def create_visit_therapist(request, user_id):
 def create_visit_patient(request, user_id, therapist_id):  
     visit_date_id = request.POST.get('visit_date_select') 
     patient = get_object_or_404(Patient, user_id=user_id)
-    patient_id = patient.id
-    booked_by_patient = True
-    is_confirmed = False
     created_visit_date = get_object_or_404(Visit_date, id=visit_date_id)
     created_visit_date.is_visit = True
     created_visit_date.save()
-    Visit.objects.create(visit_date_id=visit_date_id,patient_id=patient_id,therapist_id=therapist_id,booked_by_patient=booked_by_patient,is_confirmed=is_confirmed)
+    visit = get_object_or_404(Visit, visit_date_id = created_visit_date.id)
+    visit.patient_id = patient.id
+    visit.booked_by_patient = True
+    visit.is_confirmed = False
+    visit.save()
     return redirect('visit_list')
 
 @login_required (login_url='login_user')
@@ -185,10 +192,13 @@ def cancel_visit(request, visit_id):
     visit_date = get_object_or_404(Visit_date, id = visit.visit_date_id)
     if visit_date.is_reserved:
         visit.patient_id = None
+        visit.booked_by_patient = False
+        visit.is_confirmed = False
         visit.save()
     else:
         visit.delete()
     visit_date.is_visit = False
+    visit_date.save()
     return redirect('visit_list')
 
 @login_required (login_url='login_user')
@@ -203,9 +213,8 @@ def visit_reserve_therapist(request, user_id):
         reserved_visit_date = get_object_or_404(Visit_date, id=reserved_visit_date_id)
         reserved_visit_date.is_reserved=True
         therapist = get_object_or_404(Therapist, user_id=user_id)
-        reserved_visit = Visit.objects.create(visit_date_id=reserved_visit_date_id,patient_id=None,therapist_id=therapist.id,booked_by_patient=False,is_confirmed=False)
+        Visit.objects.create(visit_date_id=reserved_visit_date_id,patient_id=None,therapist_id=therapist.id,booked_by_patient=False,is_confirmed=False)
         reserved_visit_date.save()
-        reserved_visit.save()
         return redirect('therapist_schedule', therapist_id=therapist.id)
     
 @login_required (login_url='login_user')

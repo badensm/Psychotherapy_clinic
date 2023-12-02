@@ -11,12 +11,18 @@ class PatientForm(ModelForm):
     class Meta:
         model = Patient
         fields = ('diagnosis','symptoms')
-        labels = {'diagnosis':"Diagnoza",'symptoms': "Objawy"}
+        labels = {
+            'diagnosis':"Diagnoza",
+            'symptoms': "Objawy"
+            }
 
 class TherapistForm(ModelForm):
     class Meta:
         model = Therapist
         fields = ('visit_rate','info')
-        labels = {'visit_rate':"Stawka godzinowa", 'info': "Informacje"}
+        labels = {
+            'visit_rate':"Stawka godzinowa",
+            'info': "Informacje"
+            }
 
     

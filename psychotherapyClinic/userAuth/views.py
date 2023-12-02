@@ -103,7 +103,7 @@ def account_data_edit(request):
                     return redirect('account', user_id=user.id)
 
             else:
-                error = 'Invalid e-mail. try again!'  
+                error = 'Niewłaściwy e-mail. Spróbuj jeszcze raz.'  
 
 
-    return render(request, 'Niewłaściwy e-mail. Spróbuj jeszcze raz.',{'form':form, 'error': error})
+    return render(request, 'account_data_edit.html',{'form':form, 'error': error})

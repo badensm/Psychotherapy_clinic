@@ -6,11 +6,18 @@ class Therapist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     visit_rate = models.DecimalField(decimal_places=2, max_digits=7, default=0.0)
     info = models.TextField(blank=True)
+
+    def __str__(self):
+        return f'{self.user}'
+
     
 class Patient(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     diagnosis = models.CharField(max_length=200,blank=True)
     symptoms = models.TextField(blank=True)
+
+    def __str__(self):
+        return f'{self.user}'
 
 class Visit_date(models.Model):
     day = models.CharField(max_length=12)
@@ -27,6 +34,9 @@ class Visit(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, blank=True, null=True)
     booked_by_patient = models.BooleanField(default=False)
     is_confirmed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.visit_date, self.therapist, self.patient}'
 
     
     
