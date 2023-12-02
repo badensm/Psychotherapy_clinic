@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1>Zarezerwuj termin wizyty</h1>
+ 
+<form action="{% url 'visit_reserve_therapist' user.id %}" method='POST'>
+    <p>Pacjent: {{user.first_name}} {{user.last_name}}</p>
+
+
+    <label for="visit_date_select"><p>Termin wizyty:</p></label>
+    <select name="visit_date_select" id="visit_date_select">
+        
+        {% for visit_date in visit_dates %}                                         
+            
+            <option value={{visit_date.id}}>{{visit_date.day}}, godz. {{visit_date.hours}}</option> 
+
+        {% endfor %}
+            
+    </select>
+    {% csrf_token %}
+    <button type="Submit">Create</button>  
+</form>
+{% endblock content %}
+    
+
+

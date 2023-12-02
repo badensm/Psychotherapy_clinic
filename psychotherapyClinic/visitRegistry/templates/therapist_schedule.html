@@ -2,6 +2,10 @@
 
 
 {% block content %}
+   
+<a href="{% url 'visit_reserve_therapist' user.id %}"><p>Zarezerwuj termin wizyty</p></a>
+
+<a href="{% url 'cancel_reserved' user.id %}"><p>Odwołaj rezerwację terminu</p></a>
 
 <h2>Plan tygodnia terapeuty {{user}}</h2>
 

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h2>Odwołaj rezerwację terminu</h2>
+
+<form action="{% url 'cancel_reserved' user.id %}" method='POST'>
+
+
+    <label for="reserved_select"><p>Termin wizyty:</p></label>
+    <select name="reserved_select" id="reserved_select">
+        
+        {% for reserved_date in reserved %}                                         
+            
+                {% for visit_date in visit_dates %}
+                    {% if  visit_date.id == reserved_date.visit_date_id %}
+                        <option value={{reserved_date.id}}>{{visit_date.day}}, godz. {{visit_date.hours}}</option> 
+                    {% endif %}
+                {% endfor %}         
+                    
+        {% endfor %}
+            
+    </select>
+    {% csrf_token %}
+    <button type="Submit">Odwołaj</button>  
+</form>
+
+{% endblock content %}
+    
+
+

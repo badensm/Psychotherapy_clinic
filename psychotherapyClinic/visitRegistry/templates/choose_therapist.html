@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Wybierz terapeutę</h2>
+ 
+<form action="{% url 'choose_therapist' user.id %}" method='POST'>
+    <p>Pacjent: {{user.first_name}} {{user.last_name}}</p>
+
+    <label for="therapist_select"><p>Terapeuta:</p></label>
+    <select name="therapist_select" id="therapist_select">
+        
+        {% for therapist in therapists %}
+            
+            {% for user_search in user_list %}
+                
+                {% if user_search.id == therapist.user_id %}
+                    <option value={{therapist.id}}>{{user_search.first_name}} {{user_search.last_name}}</option>
+                {% endif %}
+                    
+            {% endfor %}
+                
+            
+        {% endfor %}
+            
+    </select>
+
+    </select>
+    {% csrf_token %}
+    <button type="Submit">Create</button>  
+</form>
+
+{% endblock content %}

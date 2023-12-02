@@ -3,9 +3,9 @@
 
 {% block content %}
 
-<h1>Umów nową wizytę</h1>
+<h2>Umów nową wizytę</h2>
  
-<form action="{% url 'create_visit' user.id %}" method='POST'>
+<form action="{% url 'create_visit_therapist' user.id %}" method='POST'>
     <p>Pacjent: {{user.first_name}} {{user.last_name}}</p>
 
     <label for="patient_select"><p>Pacjent:</p></label>
@@ -29,15 +29,25 @@
     <label for="visit_date_select"><p>Termin wizyty:</p></label>
     <select name="visit_date_select" id="visit_date_select">
         
-        {% for visit_date in visit_dates %}
-        
-            <option value={{visit_date.id}}>{{visit_date.day}}, godz. {{visit_date.hours}}</option>    
-
+        {% for visit_date in visit_dates %}                                         
+            
+            {% if visit_date.is_reserved %}
+              
+                {% for visit in visit_list %}
+                    {% if  visit_date.id == visit.visit_date_id %}
+                        <option value={{visit_date.id}}>{{visit_date.day}}, godz. {{visit_date.hours}}</option> 
+                    {% endif %}
+                {% endfor %}         
+                    
+            {% else %}
+                <option value={{visit_date.id}}>{{visit_date.day}}, godz. {{visit_date.hours}}</option>    
+            {% endif %}
+                
         {% endfor %}
             
     </select>
     {% csrf_token %}
-    <button type="Submit">Create</button>  
+    <button type="Submit">Umów</button>  
 </form>
 {% endblock content %}
     
