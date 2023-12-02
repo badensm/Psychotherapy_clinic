@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h2>Nasi terapeuci</h2>
+
+<table>
+    <tr>
+        <td>Imię i Nazwisko</td>
+        <td>Stawka[PLN]</td>
+        <td>Informacje</td>
+
+    </tr>
+
+    {% for therapist in therapists %}
+        <tr>           
+                              
+            
+            {% for user_search in user_list %}           
+                {% if user_search.id == therapist.user_id %}
+    
+                        <td>{{user_search.first_name}} {{user_search.last_name}}</td>
+                   
+                {% endif %}
+            {% endfor %}
+                 
+            <td>{{therapist.visit_rate}}</td>
+            <td>{{therapist.info}}</td>  
+                    
+   
+        </tr>
+    {% endfor %}
+        
+</table>
+
+
+  
+
+{% endblock content %}
+    
+
+

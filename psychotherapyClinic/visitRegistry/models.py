@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Therapist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    visit_rate = models.FloatField()
+    visit_rate = models.DecimalField(decimal_places=2, max_digits=7, default=0.0)
     info = models.TextField(blank=True)
     
 class Patient(models.Model):

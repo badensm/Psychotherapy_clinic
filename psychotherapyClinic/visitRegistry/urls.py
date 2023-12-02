@@ -17,5 +17,10 @@ urlpatterns = [
     path('visit/confirm_visit/<int:visit_id>/', views.confirm_visit, name='confirm_visit'),
     path('visit/reserve/therapist/<int:user_id>/', views.visit_reserve_therapist, name='visit_reserve_therapist'),
     path('therapist/schedule/<int:therapist_id>/', views.therapist_schedule, name='therapist_schedule'),
-    path('therapist/reserved/cancel/<int:user_id>', views.cancel_reserved, name='cancel_reserved')
+    path('therapist/reserved/cancel/<int:user_id>', views.cancel_reserved, name='cancel_reserved'),
+    path('patient/edit/symptoms/<int:user_id>', views.patient_symptoms_edit, name='patient_symptoms_edit'),
+    path('therapist/edit/data/<int:user_id>', views.therapist_data_edit, name='therapist_data_edit'),
+    path('therapist/edit/patient/<int:patient_id>', views.therapist_patient_edit, name='therapist_patient_edit'),
+    path('therapist/patient_list/', views.patient_list, name='patient_list'),
+    path('therapist_list/', views.therapist_list, name='therapist_list'),
 ]

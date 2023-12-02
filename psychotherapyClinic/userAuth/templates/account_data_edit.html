@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if error %}
+<h3>{{error}}</h3>
+{% endif %}
+
+<form action="{% url 'account_data_edit' %}" method="post">
+    {{form}}
+    {% csrf_token %}
+    <button type="Submit">Zatwierdź zmiany</button>
+</form>
+
+
+{% endblock content %}
+    
+
+

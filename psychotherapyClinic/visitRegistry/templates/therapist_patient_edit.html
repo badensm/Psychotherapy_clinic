@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if error %}
+<h3>{{error}}</h3>
+{% endif %}
+
+<h1>Dane konta użytkownika {{user}}</h1>
+
+<p>Imię: {{user.first_name}}</p>
+<p>Nazwisko: {{user.last_name}}</p>
+<p>E-mail: {{user.email}}</p>
+
+
+<form action="{% url 'therapist_patient_edit' patient.id %}" method="post">
+    {{form}}  
+    {% csrf_token %}
+    <button type="Submit">Zapisz zmiany</button>  
+</form>
+
+
+
+{% endblock content %}
+    
+
+

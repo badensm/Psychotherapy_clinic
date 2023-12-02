@@ -2,9 +2,15 @@ from django.shortcuts import render,  get_object_or_404, redirect
 from .models import Therapist, Patient, Visit, Visit_date
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .forms import SymptomsForm, PatientForm, TherapistForm
 
 def home(request):
     return render(request,'home.html')
+
+def therapist_list(request):
+    therapists = Therapist.objects.all()
+    user_list = User.objects.all()
+    return render(request, 'therapist_list.html',{'therapists':therapists,'user_list':user_list})
 
 @login_required (login_url='login_user') 
 def account(request, user_id):
@@ -16,10 +22,69 @@ def account(request, user_id):
     return render(request,'account.html',{'user': user,'additional_data': additional_data})
 
 @login_required (login_url='login_user') 
+def patient_symptoms_edit(request, user_id):
+    if request.method == 'GET':
+        patient = get_object_or_404(Patient, user_id=user_id)
+        form = SymptomsForm(instance=patient)
+        return render(request,'patient_symptoms_edit.html', {'form':form})
+    else:
+        patient = get_object_or_404(Patient, user_id=user_id)
+        form = SymptomsForm(request.POST, instance=patient)
+        if form.is_valid():
+            form.save()
+            return redirect('account', user_id=user_id)
+        else:
+            error = 'Something went wrong'
+            return render(request, 'patien_symptoms_edit.html', {'form':form, 'error':error})
+        
+        
+@login_required (login_url='login_user') 
+def therapist_data_edit(request, user_id):
+    if request.method == 'GET':
+        therapist = get_object_or_404(Therapist, user_id=user_id)
+        form = TherapistForm(instance=therapist)
+        return render(request,'therapist_data_edit.html', {'form':form})
+    else:
+        therapist = get_object_or_404(Therapist, user_id=user_id)
+        form = TherapistForm(request.POST, instance=therapist)
+        if form.is_valid():
+            form.save()
+            return redirect('account', user_id=user_id)
+        else:
+            error = 'Something went wrong'
+            return render(request, 'therapist_data_edit.html', {'form':form, 'error':error})
+    
+@login_required (login_url='login_user') 
+def therapist_patient_edit(request, patient_id):
+    if request.method == 'GET':
+        patient = get_object_or_404(Patient, id=patient_id)
+        form = PatientForm(instance=patient)
+        visits = Visit.objects.filter(patient_id=patient_id)
+        return render(request,'therapist_patient_edit.html', {'form':form, 'visits':visits, 'patient':patient})
+    else:
+        patient = get_object_or_404(Patient, id=patient_id)
+        form = PatientForm(request.POST, instance=patient)
+        user = request.user
+        if form.is_valid():
+            form.save()
+            return redirect('patient_list')
+        else:
+            error = 'Something went wrong'
+            return render(request, 'therapist_patient_edit.html', {'form':form, 'error':error})
+        
+@login_required (login_url='login_user') 
+def patient_list(request):
+    user = request.user
+    therapist = get_object_or_404(Therapist, user_id=user.id)
+    visits = Visit.objects.filter(therapist_id=therapist.id, is_confirmed=True)
+    patients=Patient.objects.all()
+    user_list=User.objects.all()
+    return render(request,'patient_list.html',{'visits': visits,'patients':patients, 'user_list':user_list})
+
+@login_required (login_url='login_user') 
 def visit_list(request):
     visits = Visit.objects.all()
     visit_hours = Visit_date.objects.all()
-
     return render(request,'visit_list.html',{'visits': visits,'visit_hours':visit_hours})
 
 @login_required (login_url='login_user') 
@@ -63,8 +128,7 @@ def choose_therapist(request,user_id):
         therapists = Therapist.objects.all()
         return render(request, 'choose_therapist.html', {'therapists':therapists,'user_list':user_list})
     else:
-        #therapist_id = request.POST.get('therapist_select')
-        therapist_id = 1
+        therapist_id = request.POST.get('therapist_select')
         return redirect('visit_create_patient', user_id=user_id, therapist_id=therapist_id)
 
 @login_required (login_url='login_user')
@@ -160,3 +224,5 @@ def cancel_reserved(request, user_id):
         visit_date.save()
         cancelled_visit.delete()
         return redirect('therapist_schedule', therapist_id=therapist.id)
+    
+

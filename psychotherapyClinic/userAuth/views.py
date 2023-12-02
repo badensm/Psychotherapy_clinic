@@ -1,10 +1,10 @@
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
-from .forms import RegisterForm
+from .forms import RegisterForm, EditForm
 from django.contrib.auth.models import User
 from .utils import check_email
 from django.contrib.auth.password_validation import validate_password
-from django.contrib.auth.forms import AuthenticationForm 
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from visitRegistry.models import Therapist, Patient
@@ -76,3 +76,34 @@ def login_user(request):
 def logout_user(request):
         logout(request)
         return redirect('home')
+
+@login_required(login_url='login_user')  
+def account_data_edit(request):
+    if request.method == 'GET':
+        form = EditForm(instance=request.user)
+        return render(request, 'account_data_edit.html', {'form': form})
+    else:
+        form = EditForm(instance=request.user)
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+      
+        email_taken = User.objects.filter(email=email).exists()
+
+        if email_taken:
+            error = 'This e-mail is taken. Try again!' 
+        else:
+            email_valid = check_email(email)  
+            if email_valid:
+                    user = request.user
+                    user.first_name=first_name
+                    user.last_name=last_name
+                    user.email=email
+                    user.save()
+                    return redirect('account', user_id=user.id)
+
+            else:
+                error = 'Invalid e-mail. try again!'  
+
+
+    return render(request, 'account_data_edit.html',{'form':form, 'error': error})
