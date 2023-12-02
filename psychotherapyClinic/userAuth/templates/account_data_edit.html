@@ -7,6 +7,8 @@
 <h3>{{error}}</h3>
 {% endif %}
 
+<h2>Twoje dane</h2>
+
 <form action="{% url 'account_data_edit' %}" method="post">
     {{form}}
     {% csrf_token %}

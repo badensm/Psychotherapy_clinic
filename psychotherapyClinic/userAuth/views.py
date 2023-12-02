@@ -26,9 +26,9 @@ def register(request):
             email_taken = User.objects.filter(email=email).exists()
 
             if username_taken:
-                error = 'This username is taken. Try again!'
+                error = 'Ten login jest zajęty. Spróbuj jeszcze raz.'
             elif email_taken:
-                error = 'This e-mail is taken. Try again!' 
+                error = 'Ten e-mail jest zajęty. Spróbuj jeszcze raz.' 
             else:
                 email_valid = check_email(email)  
                 if email_valid:
@@ -48,9 +48,9 @@ def register(request):
                         return redirect('home')
 
                 else:
-                    error = 'Invalid e-mail. try again!'  
+                    error = 'Niewłaściwy e-mail. Spróbuj jeszcze raz.'  
         else:
-            error = 'Passwors must match. Try again!'
+            error = 'Hasła nie są zgodne. Spróbuj jeszcze raz!'
 
     return render(request, 'register.html',{'form':RegisterForm(), 'error': error})
 
@@ -67,9 +67,9 @@ def login_user(request):
         else:
             user_exists = User.objects.filter(username=username).exists()
             if user_exists:
-                error = 'Incorrect paswword'
+                error = 'Niewłaściwe hasło'
             else:
-                error = f'User {username} does not exist'
+                error = f'Użytkownik {username} nie istnieje'
             return render(request, 'login_user.html', {'form': AuthenticationForm(),'error':error})
 
 @login_required(login_url='login_user')        
@@ -91,7 +91,7 @@ def account_data_edit(request):
         email_taken = User.objects.filter(email=email).exists()
 
         if email_taken:
-            error = 'This e-mail is taken. Try again!' 
+            error = 'Ten e-mail jest zajęty. Spróbuj jeszcze raz.' 
         else:
             email_valid = check_email(email)  
             if email_valid:
@@ -106,4 +106,4 @@ def account_data_edit(request):
                 error = 'Invalid e-mail. try again!'  
 
 
-    return render(request, 'account_data_edit.html',{'form':form, 'error': error})
+    return render(request, 'Niewłaściwy e-mail. Spróbuj jeszcze raz.',{'form':form, 'error': error})
