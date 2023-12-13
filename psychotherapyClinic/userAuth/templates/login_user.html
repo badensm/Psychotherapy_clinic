@@ -8,7 +8,7 @@
 {% endif %}
 
 
-<form action="{% url 'login_user' %}" method="post">
+<form action="{% url 'login' %}" method="post" class="login">
     {{form}}  
     {% csrf_token %}
     <button type="Submit">Zaloguj</button>  

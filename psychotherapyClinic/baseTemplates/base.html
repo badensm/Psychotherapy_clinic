@@ -1,27 +1,50 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poradnia</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css\base.css' %}">
+
+    {% block header %}
+    {% endblock header%}
 </head>
+
+<style>
+    body {
+      background-image: url("{% static 'images\back2.jpg' %}");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    </style>
 <body>
 
+    <a href="{% url 'home' %}"><p class="base_link">Poradnia</p></a>
+
     {% if user.is_authenticated %}
-    <a href="{% url 'logout_user' %}"><p>Wyloguj</p></a>
+    <a href="{% url 'logout' %}"><p class="base_link">Wyloguj</p></a>
     
         {% if user.is_superuser %}
             <h1>Witaj wszechmocny administratorze {{user}}!!!</h1>
             <a href="{% url 'admin:index' %}"><p>Strona admina</p></a>
         {% else %}
-            <a href="{% url 'account' user.id %}"><p>Twoje konto</p></a>
-            <a href="{% url 'visit_list' %}"><p>Twoje wizyty</p></a>
+            <a href="{% url 'account' user.id %}"><p class="base_link">Konto</p></a>
+            <a href="{% url 'visit_list' %}"><p class="base_link">Wizyty</p></a>  
+            {% if user.is_staff %}
+                <a href="{% url 'patient_list' %}"><p class="base_link">Pacjenci</p></a>
+                <a href="{% url 'therapist_schedule' %}"><p class="base_link">Plan tygodnia</p></a> 
+            {% else %}
+            <a href="{% url 'therapist_list' %}"><p class="base_link">Terapeuci</p></a>
+            {% endif %}
         {% endif %}      
     {% else %}
-    <a href="{% url 'register' %}"><p>Zarejestruj się</p></a>
-    <a href="{% url 'login_user' %}"><p>Zaloguj się</p></a>
+    <a href="{% url 'login' %}"><p class="base_link">Zaloguj się</p></a>
+    <a href="{% url 'register' %}"><p class="base_link">Zarejestruj się</p></a>
     {% endif %}
-     {% block content%}
+    {% block content%}
     {% endblock content %}
 
 </body>

@@ -14,9 +14,9 @@
 {% endif %}                  
 {% endfor %}
 
-<form action="{% url 'create_visit_patient' user.id therapist.id %}" method='POST'>
+<form action="{% url 'create_visit_patient' user.id therapist.id %}" method='POST' class="simple">
    
-    <label for="visit_date_select"><p>Termin wizyty:</p></label>
+    <label for="visit_date_select"><p>Dostepne terminy:</p></label>
     <select name="visit_date_select" id="visit_date_select">
         
         {% for visit_date in visit_dates %}

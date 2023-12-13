@@ -3,12 +3,12 @@
 
 {% block content %}
 
-<h1>Dane konta użytkownika {{user}}</h1>
+<h2>Konto użytkownika {{user}}</h2>
 
 <p>Imię: {{user.first_name}}</p>
 <p>Nazwisko: {{user.last_name}}</p>
 <p>E-mail: {{user.email}}</p>
-
+<a href="{% url 'account_data_edit' %}"><p class="edit_link">Edytuj swoje dane</p></a>
 
 {% if user.is_staff %}
 
@@ -17,27 +17,26 @@
         <p>Stawka godzinowa [PLN]: {{additional_data.visit_rate}}</p>
         <p>Dodatkowe informacje: {{additional_data.info}}</p>
     {% endif %} 
-    <a href="{% url 'therapist_schedule' additional_data.id %}"><p>Twój plan tygodnia</p></a>
 
-    <a href="{% url 'patient_list' %}"><p>Twoi pacjenci</p></a>
 
-    <a href="{% url 'therapist_data_edit' user.id %}"><p>Edytuj stawkę i informacje</p></a>
+    <a href="{% url 'therapist_data_edit' user.id %}"><p class="edit_link">Edytuj stawkę i informacje</p></a>
 
 {% else %}
 
     <p>Pozycja: Pacjent</p>
+    {% if additional_data.diagnosis %}
+    <p>Twoja diagnoza: {{additional_data.diagnosis}}</p>
+    {% endif %}
     {% if additional_data.symptoms %}
         <p>Twoje objawy: {{additional_data.symptoms}}</p>
     {% endif %}
-    {% if additional_data.diagnosis %}
-        <p>Twoja diagnoza: {{additional_data.diagnosis}}</p>
-    {% endif %}
 
-    <a href="{% url 'patient_symptoms_edit' user.id %}"><p>Edytuj swoje objawy</p></a>
+
+    <a href="{% url 'patient_symptoms_edit' user.id %}" class="edit_link"><p>Edytuj swoje objawy</p></a>
 
 {% endif %}
 
-<a href="{% url 'account_data_edit' %}"><p>Edytuj swoje dane</p></a>
+
 
 
 {% endblock content %}

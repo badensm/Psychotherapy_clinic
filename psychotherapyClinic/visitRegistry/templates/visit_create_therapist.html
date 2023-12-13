@@ -3,9 +3,10 @@
 
 {% block content %}
 
+
 <h2>Umów nową wizytę</h2>
  
-<form action="{% url 'create_visit_therapist' user.id %}" method='POST'>
+<form action="{% url 'create_visit_therapist' user.id %}" method='POST' class="simple">
     <p>Pacjent: {{user.first_name}} {{user.last_name}}</p>
 
     <label for="patient_select"><p>Pacjent:</p></label>

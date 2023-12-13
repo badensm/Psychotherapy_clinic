@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block header %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css\therapist_list.css' %}">
+{% endblock header %}
 
 {% block content %}
 
@@ -7,9 +11,9 @@
 
 <table>
     <tr>
-        <td>Imię i Nazwisko</td>
-        <td>Stawka[PLN]</td>
-        <td>Informacje</td>
+        <th class="name">Imię i Nazwisko</td>
+        <th>Stawka[PLN]</td>
+        <th class="info">Informacje</td>
 
     </tr>
 
@@ -25,8 +29,8 @@
                 {% endif %}
             {% endfor %}
                  
-            <td>{{therapist.visit_rate}}</td>
-            <td>{{therapist.info}}</td>  
+            <td class="rate">{{therapist.visit_rate}}</td>
+            <td class="info">{{therapist.info}}</td>  
                     
    
         </tr>

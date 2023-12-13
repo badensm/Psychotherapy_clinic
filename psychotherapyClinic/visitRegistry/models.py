@@ -19,7 +19,7 @@ class Patient(models.Model):
     def __str__(self):
         return f'{self.user}'
 
-class Visit_date(models.Model):
+class VisitDate(models.Model):
     day = models.CharField(max_length=12)
     hours = models.PositiveSmallIntegerField()
     is_visit = models.BooleanField(default=False)
@@ -29,7 +29,7 @@ class Visit_date(models.Model):
         return f'{self.day} | {self.hours}'
 
 class Visit(models.Model):
-    visit_date = models.ForeignKey(Visit_date, on_delete=models.CASCADE)
+    visit_date = models.ForeignKey(VisitDate, on_delete=models.CASCADE)
     therapist = models.ForeignKey(Therapist, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, blank=True, null=True)
     booked_by_patient = models.BooleanField(default=False)

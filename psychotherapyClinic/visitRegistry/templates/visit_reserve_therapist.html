@@ -3,13 +3,12 @@
 
 {% block content %}
 
-<h1>Zarezerwuj termin wizyty</h1>
+
+<h2>Zarezerwuj termin wizyty</h2>
  
-<form action="{% url 'visit_reserve_therapist' user.id %}" method='POST'>
-    <p>Pacjent: {{user.first_name}} {{user.last_name}}</p>
-
-
-    <label for="visit_date_select"><p>Termin wizyty:</p></label>
+<form action="{% url 'visit_reserve_therapist' user.id %}" method='POST' class="simple">
+    
+    <label for="visit_date_select"><p>Dostępne terminy:</p></label>
     <select name="visit_date_select" id="visit_date_select">
         
         {% for visit_date in visit_dates %}                                         

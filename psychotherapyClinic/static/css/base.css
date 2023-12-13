@@ -1,0 +1,59 @@
+
+a:link{
+    text-decoration: none;
+}
+
+h1 {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 32pt; /*px, rem, em*/
+    font-weight: 500;
+    font-style: italic;
+}
+
+h2 {
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 24pt;
+}
+
+h3 {
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 18pt;
+}
+
+.vis_edit_link{
+    display: block;
+    font-weight: 600;
+    font-size: 14pt;
+    color: crimson;
+}
+
+p {
+    font-family: 'Arial Narrow', Arial, sans-serif;
+}
+
+.base_link{
+    display: inline-block;
+    width: 110px;
+    font-weight: 600;
+    color: darkred;
+}
+
+.edit_link{
+    display: inline-block;
+    font-weight: 600;
+    color: orangered;
+}
+
+.vis_date_link{
+    display: inline-block;
+    font-weight: 600;
+    color: darkblue;
+}
+
+.patient_link{
+    display: block;
+    font-weight: 600;
+    color: darkgreen;
+}

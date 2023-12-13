@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
-<h1>Pacjenci {{user}}</h1>
+<h2>Pacjenci terapeuty {{user}}</h2>
 
 {% for visit in visits %}
       
@@ -14,7 +13,7 @@
                 {% for user_search in user_list %}
                 
                 {% if user_search.id == patient.user_id %}                  
-                    <a href="{% url 'therapist_patient_edit' patient.id %}"><p>{{user_search.first_name}} {{user_search.last_name}}</p></a>
+                    <a href="{% url 'therapist_patient_edit' patient.id %}"><p class="patient_link">{{user_search.first_name}} {{user_search.last_name}}</p></a>
                 {% endif %}
                     
                     

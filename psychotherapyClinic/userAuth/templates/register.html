@@ -17,7 +17,7 @@
     <h3>{{error}}</h3>
     {% endif %}
 
-    <form action="{% url 'register' %}" method="post">
+    <form action="{% url 'register' %}" method="post" class="reg">
         {{form}}
         {% csrf_token %}
         <button type="Submit">Zarejestruj</button>

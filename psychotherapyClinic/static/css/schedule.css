@@ -1,0 +1,33 @@
+table {
+    width: 220px;
+    margin-left: 30px;
+}
+
+tr{
+    border-style: none;
+}
+
+td {
+    color: black;
+    font-family: 'Arial Narrow', Arial, sans-serif; 
+    font-weight: 600;
+}
+
+.date_occ {
+    color: red;
+
+}
+
+.date_free {
+    color: green;
+}
+
+.vis{
+    color:blue;
+    font-weight: 700;
+    width: 100px;
+}
+
+.res{
+    color:darkblue;
+}

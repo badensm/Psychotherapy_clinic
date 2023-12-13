@@ -3,9 +3,11 @@
 
 {% block content %}
 
-<h1>Wizyty {{user}}</h1>
+<h2>Wizyty uzytkownika {{user}}</h2>
 
-<h2>Wizyty potwierdzone</h2>
+<a href="{% url 'visit_create_user' user.id %}"><h3 class="vis_edit_link">Umów wizytę</h3></a>
+
+<h3>Wizyty potwierdzone</h3>
 
 {% for visit in visits %}
 
@@ -14,7 +16,7 @@
         {% for visit_hour in visit_hours %}
     
             {% if visit_hour.id == visit.visit_date_id %}
-                <a href="{% url 'visit_detail' visit.id %}"><p>{{visit_hour.day}}, godz. {{visit_hour.hours}}</p></a>
+                <a href="{% url 'visit_detail' visit.id %}"><p class="vis_date_link">{{visit_hour.day}}, godz. {{visit_hour.hours}}</p></a>
             {% endif %}      
         
         {% endfor %}      
@@ -23,7 +25,7 @@
 
 {% endfor %}
 
-<h2>Wizyty niepotwierdzone</h2>
+<h3>Wizyty niepotwierdzone</h3>
 
 {% for visit in visits %}
 
@@ -31,7 +33,7 @@
         {% for visit_hour in visit_hours %}
     
             {% if visit_hour.id == visit.visit_date_id %}
-                <a href="{% url 'visit_detail' visit.id %}"><p>{{visit_hour.day}}, godz. {{visit_hour.hours}}</p></a>
+                <a href="{% url 'visit_detail' visit.id %}"><p class="vis_date_link">{{visit_hour.day}}, godz. {{visit_hour.hours}}</p></a>
             {% endif %}      
 
         {% endfor %}   
@@ -40,7 +42,7 @@
 
 {% endfor %}
 
-<a href="{% url 'visit_create_user' user.id %}"><p>Umów wizytę</p></a>
+
 
 
   

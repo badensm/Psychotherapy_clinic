@@ -1,0 +1,31 @@
+table {
+    width: 500px;
+    margin-left: 30px;
+    border-collapse: collapse;
+}
+
+th {
+    color: black;
+    font-family: 'Arial Narrow', Arial, sans-serif; 
+    font-weight: 600;
+    
+}
+
+.name{
+    text-align:left;
+}
+
+
+td {
+    color: black;
+    font-family: 'Arial Narrow', Arial, sans-serif; 
+    height: 20px;
+}
+
+.rate{
+    text-align: center;
+}
+
+.info{
+    text-align: justify;
+}
