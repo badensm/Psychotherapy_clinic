@@ -5,41 +5,22 @@
 
 <h2>Wizyty uzytkownika {{user}}</h2>
 
-<a href="{% url 'visit_create_user' user.id %}"><h3 class="vis_edit_link">Umów wizytę</h3></a>
+<a href="{% url 'visit_create_user' %}"><h3 class="vis_edit_link">Umów wizytę</h3></a>
 
 <h3>Wizyty potwierdzone</h3>
 
-{% for visit in visits %}
-
-    {% if visit.is_confirmed and visit.patient_id %}
+{% for visit in visits_confirmed %}
     
-        {% for visit_hour in visit_hours %}
-    
-            {% if visit_hour.id == visit.visit_date_id %}
-                <a href="{% url 'visit_detail' visit.id %}"><p class="vis_date_link">{{visit_hour.day}}, godz. {{visit_hour.hours}}</p></a>
-            {% endif %}      
-        
-        {% endfor %}      
-
-    {% endif %}
-
+    <a href="{% url 'visit_detail' visit.id %}"><p class="vis_date_link">{{visit.day}}, godz. {{visit.hours}}</p></a>
+   
 {% endfor %}
 
 <h3>Wizyty niepotwierdzone</h3>
 
-{% for visit in visits %}
-
-    {% if not visit.is_confirmed and visit.patient_id %}
-        {% for visit_hour in visit_hours %}
+{% for visit in visits_not_confirmed %}
     
-            {% if visit_hour.id == visit.visit_date_id %}
-                <a href="{% url 'visit_detail' visit.id %}"><p class="vis_date_link">{{visit_hour.day}}, godz. {{visit_hour.hours}}</p></a>
-            {% endif %}      
-
-        {% endfor %}   
-        
-    {% endif %}
-
+    <a href="{% url 'visit_detail' visit.id %}"><p class="vis_date_link">{{visit.day}}, godz. {{visit.hours}}</p></a>
+          
 {% endfor %}
 
 

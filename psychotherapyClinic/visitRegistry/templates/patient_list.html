@@ -4,31 +4,12 @@
 
 <h2>Pacjenci terapeuty {{user}}</h2>
 
-{% for visit in visits %}
-      
-        {% for patient in patients %}
-    
-            {% if patient.id == visit.patient_id %}
-                
-                {% for user_search in user_list %}
-                
-                {% if user_search.id == patient.user_id %}                  
-                    <a href="{% url 'therapist_patient_edit' patient.id %}"><p class="patient_link">{{user_search.first_name}} {{user_search.last_name}}</p></a>
-                {% endif %}
-                    
-                    
-                {% endfor %}
-                    
-            {% endif %}      
+{% for user_search in user_list %}
         
-        {% endfor %}      
-
-
+    <a href="{% url 'therapist_patient_edit' user_search.id %}"><p class="patient_link">{{user_search.first_name}} {{user_search.last_name}}</p></a>           
+    
 {% endfor %}
-
-
   
-
 {% endblock content %}
     
 

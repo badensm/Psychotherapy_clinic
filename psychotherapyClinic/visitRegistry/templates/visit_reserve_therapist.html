@@ -6,7 +6,7 @@
 
 <h2>Zarezerwuj termin wizyty</h2>
  
-<form action="{% url 'visit_reserve_therapist' user.id %}" method='POST' class="simple">
+<form action="{% url 'visit_reserve_therapist' %}" method='POST' class="simple">
     
     <label for="visit_date_select"><p>Dostępne terminy:</p></label>
     <select name="visit_date_select" id="visit_date_select">

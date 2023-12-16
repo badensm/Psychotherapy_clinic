@@ -14,7 +14,7 @@
 <p>E-mail: {{user.email}}</p>
 
 
-<form action="{% url 'patient_symptoms_edit' user.id %}" method="post">
+<form action="{% url 'patient_symptoms_edit' %}" method="post">
     {{form}}  
     {% csrf_token %}
     <button type="Submit">Zapisz zmiany</button>  

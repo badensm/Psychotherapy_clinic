@@ -7,11 +7,11 @@
 <h3>{{error}}</h3>
 {% endif %}
 
-<h1>Dane konta użytkownika {{user}}</h1>
+<h1>Dane pacjenta {{patient}}</h1>
 
-<p>Imię: {{user.first_name}}</p>
-<p>Nazwisko: {{user.last_name}}</p>
-<p>E-mail: {{user.email}}</p>
+<p>Imię: {{patient.first_name}}</p>
+<p>Nazwisko: {{patient.last_name}}</p>
+<p>E-mail: {{patient.email}}</p>
 
 
 <form action="{% url 'therapist_patient_edit' patient.id %}" method="post">

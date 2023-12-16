@@ -4,26 +4,17 @@
 
 <h2>Wybierz terapeutę</h2>
  
-<form action="{% url 'choose_therapist' user.id %}" method='POST'>
+<form action="{% url 'choose_therapist' %}" method='POST'>
     <p>Pacjent: {{user.first_name}} {{user.last_name}}</p>
 
     <label for="therapist_select"><p>Terapeuta:</p></label>
     <select name="therapist_select" id="therapist_select">
         
-        {% for therapist in therapists %}
-            
-            {% for user_search in user_list %}
-                
-                {% if user_search.id == therapist.user_id %}
-                    <option value={{therapist.id}}>{{user_search.first_name}} {{user_search.last_name}}</option>
-                {% endif %}
-                    
-            {% endfor %}
-                
-            
-        {% endfor %}
-            
-    </select>
+    {% for therapist in therapist_list %}
+
+        <option value={{therapist.id}}>{{therapist.first_name}} {{therapist.last_name}}</option>
+
+    {% endfor %}
 
     </select>
     {% csrf_token %}

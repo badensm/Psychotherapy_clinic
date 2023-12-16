@@ -47,7 +47,7 @@ p {
 }
 
 .vis_date_link{
-    display: inline-block;
+    display: block;
     font-weight: 600;
     color: darkblue;
 }
